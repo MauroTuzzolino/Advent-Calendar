@@ -2,6 +2,7 @@ import { useState } from "react";
 import Calendar from "./components/Calendar";
 import { days } from "./data/days";
 import Modal from "./components/Modal";
+import Snow from "./components/Snow";
 
 function App() {
   const [selectedContent, setSelectedContent] = useState(null);
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <div className="app">
+      <Snow />
       <h1>🎄 Advent Calendar 2025 🎄</h1>
 
       <Calendar onOpenDay={handleOpenDay} />
