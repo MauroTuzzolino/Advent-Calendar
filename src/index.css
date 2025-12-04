@@ -1,0 +1,40 @@
+body {
+  background: #fdf6f0;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.day-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+  font-size: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-card.unlocked:hover {
+  transform: scale(1.05);
+}
+
+.day-card.locked {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.lock {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
