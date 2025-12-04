@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="app">
       <Snow />
-      <h1>🎄 Advent Calendar 2025 🎄</h1>
+      <h1 className="title">🎄 Advent Calendar 2025 🎄</h1>
 
       <Calendar onOpenDay={handleOpenDay} />
 
