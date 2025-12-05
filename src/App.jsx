@@ -3,6 +3,7 @@ import Calendar from "./components/Calendar";
 import { days } from "./data/days";
 import Modal from "./components/Modal";
 import Snow from "./components/Snow";
+import MusicToggle from "./components/MusicToggle";
 
 function App() {
   const [selectedContent, setSelectedContent] = useState(null);
@@ -17,6 +18,7 @@ function App() {
   return (
     <div className="app">
       <Snow />
+      <MusicToggle />
       <h1 className="title">🎄 Advent Calendar 2025 🎄</h1>
 
       <Calendar onOpenDay={handleOpenDay} />

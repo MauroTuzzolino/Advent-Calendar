@@ -143,3 +143,42 @@ body {
     opacity: 0;
   }
 }
+
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: var(--gold);
+  color: var(--red);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover: leggera crescita */
+.music-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(247, 217, 126, 0.7);
+}
+
+.music-btn.playing {
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+/* Effetto pulse dorato */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(247, 217, 126, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(247, 217, 126, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(247, 217, 126, 0.4);
+  }
+}
