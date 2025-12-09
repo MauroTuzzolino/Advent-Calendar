@@ -103,22 +103,15 @@ body {
 
 /* 🎬 ANIMAZIONE IMMERSIVA FULLSCREEN */
 .day-card.expand {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 12px;
+  z-index: 999;
 
-  /* scale molto grande per coprire qualsiasi schermo */
-  transform: translate(-50%, -50%) scale(14) !important;
-
-  width: 120px;
-  height: 120px;
-
-  border-radius: 0;
-  box-shadow: none !important;
-
-  z-index: 9999;
-
-  transition: transform 0.65s ease-in-out, border-radius 0.45s ease-in-out, opacity 0.3s ease-in-out;
+  transition: width 0.5s ease, height 0.5s ease, top 0.5s ease, left 0.5s ease, border-radius 0.5s ease;
 }
 
 /* ❄️ NEVE */
