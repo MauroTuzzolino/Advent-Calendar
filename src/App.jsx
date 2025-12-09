@@ -15,6 +15,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      <div id="transition-overlay"></div>
       <Snow />
       <MusicToggle />
       <h1 className="title">🎄 Advent Calendar 2025 🎄</h1>

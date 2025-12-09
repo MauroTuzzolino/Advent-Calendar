@@ -18,9 +18,8 @@ const DayCard = ({ day, isUnlocked, onOpenDay }) => {
     clone.style.height = rect.height + "px";
     clone.style.margin = 0;
     clone.style.zIndex = 9999;
-    clone.style.transition = "top 0.55s ease, left 0.55s ease, width 0.55s ease, height 0.55s ease";
+    clone.style.transition = "top 0.55s ease, left 0.55s ease, width 0.55s ease, height 0.55s ease, border-radius 0.55s ease";
 
-    // Metti il clone nel DOM sopra tutto
     document.body.appendChild(clone);
 
     // Nascondi la card reale durante l’animazione
@@ -29,7 +28,13 @@ const DayCard = ({ day, isUnlocked, onOpenDay }) => {
     // 2️⃣ Forza repaint
     void clone.offsetWidth;
 
-    // 3️⃣ Anima verso fullscreen
+    // 3️⃣ Overlay anti-flicker
+    const overlay = document.getElementById("transition-overlay");
+    if (overlay) {
+      overlay.classList.add("visible");
+    }
+
+    // 4️⃣ Anima verso fullscreen
     requestAnimationFrame(() => {
       clone.style.top = "0px";
       clone.style.left = "0px";
@@ -37,10 +42,14 @@ const DayCard = ({ day, isUnlocked, onOpenDay }) => {
       clone.style.height = "100vh";
     });
 
-    // 4️⃣ Quando finisce → naviga + rimuovi clone
+    // 5️⃣ Finita l’animazione → naviga + pulizia
     setTimeout(() => {
       onOpenDay(day);
+
+      // rimuovi clone
       clone.remove();
+
+      // la card reale torna normale (sarà comunque nella pagina vecchia)
       realCard.style.opacity = "1";
     }, 600);
   };

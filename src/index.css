@@ -17,6 +17,23 @@
   min-width: 100%;
 }
 
+#transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #8b0000, #3b0000);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transition: opacity 0.35s ease;
+}
+
+#transition-overlay.visible {
+  opacity: 1;
+}
+
 html {
   height: 100vh;
 }
