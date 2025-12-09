@@ -33,7 +33,7 @@ function AppContent() {
           />
 
           <Route
-            path="/day/:dayId"
+            path="/day/:day"
             element={
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
                 <DayPage />
