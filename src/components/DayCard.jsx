@@ -1,17 +1,23 @@
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
 
-const DayCard = ({ day, isUnlocked, onOpen }) => {
+const DayCard = ({ day, isUnlocked, onOpenDay }) => {
+  const [isExpanding, setIsExpanding] = useState(false);
+  const cardRef = useRef(null);
+
+  const handleClick = () => {
+    if (!isUnlocked) return;
+
+    setIsExpanding(true);
+
+    setTimeout(() => {
+      onOpenDay(day);
+    }, 600); // tempo dell'animazione
+  };
+
   return (
-    <motion.div
-      className={`day-card ${isUnlocked ? "unlocked" : "locked"}`}
-      onClick={() => isUnlocked && onOpen(day)}
-      whileHover={isUnlocked ? { scale: 1.05 } : {}}
-      whileTap={isUnlocked ? { rotateY: 180 } : {}}
-      transition={{ duration: 0.4 }}
-    >
-      <div className="number">{day}</div>
-      {!isUnlocked && <div className="lock">🔒</div>}
-    </motion.div>
+    <div ref={cardRef} className={`day-card ${isExpanding ? "expand" : ""} ${!isUnlocked ? "locked" : ""}`} onClick={handleClick}>
+      {day}
+    </div>
   );
 };
 

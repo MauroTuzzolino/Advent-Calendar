@@ -4,6 +4,7 @@
   --warm-white: #fff7ef;
 }
 
+/* Wrapper */
 .app {
   position: relative;
   z-index: 10;
@@ -42,6 +43,7 @@ body {
   font-weight: 600;
 }
 
+/* GRID DEL CALENDARIO */
 .calendar {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -49,37 +51,48 @@ body {
   padding: 30px;
   max-width: 800px;
   margin: 0 auto;
+
+  /* Optional fade-out animation */
+  transition: opacity 0.4s ease;
 }
 
+.calendar.fade-out {
+  opacity: 0;
+}
+
+/* CARD */
 .day-card {
-  background: var(--warm-white);
+  width: 120px;
+  height: 120px;
   border-radius: 12px;
-  padding: 20px;
+  background: var(--gold);
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
   cursor: pointer;
   position: relative;
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--red);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  border: 2px solid var(--gold);
+  z-index: 1;
 
-  /* effetto 3D */
-  transform-style: preserve-3d;
-  perspective: 600px;
-  transition: transform 0.2s ease;
+  /* Smoothed default transition */
+  transition: transform 0.35s ease, opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* HOVER */
 .day-card.unlocked:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
 }
 
+/* LOCKED */
 .day-card.locked {
   opacity: 0.6;
   filter: grayscale(40%);
   cursor: default;
 }
 
+/* ICONA LUCChetto */
 .lock {
   position: absolute;
   top: 8px;
@@ -88,35 +101,27 @@ body {
   font-size: 20px;
 }
 
-/* Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
+/* 🎬 ANIMAZIONE IMMERSIVA FULLSCREEN */
+.day-card.expand {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+
+  /* scale molto grande per coprire qualsiasi schermo */
+  transform: translate(-50%, -50%) scale(14) !important;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 0;
+  box-shadow: none !important;
+
+  z-index: 9999;
+
+  transition: transform 0.65s ease-in-out, border-radius 0.45s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Contenuto */
-.modal-content {
-  background: var(--warm-white);
-  padding: 30px;
-  border-radius: 20px;
-  width: 80%;
-  max-width: 380px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  border: 3px solid var(--gold);
-  color: var(--red);
-  font-size: 20px;
-  font-weight: 500;
-}
-
+/* ❄️ NEVE */
 .snow-container {
   pointer-events: none;
   position: fixed;
@@ -144,6 +149,7 @@ body {
   }
 }
 
+/* MUSICA */
 .music-btn {
   position: fixed;
   top: 15px;
@@ -160,17 +166,17 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover: leggera crescita */
+/* Hover */
 .music-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 12px rgba(247, 217, 126, 0.7);
 }
 
+/* Effetto pulsazione */
 .music-btn.playing {
   animation: pulse 1.8s infinite ease-in-out;
 }
 
-/* Effetto pulse dorato */
 @keyframes pulse {
   0% {
     box-shadow: 0 0 10px rgba(247, 217, 126, 0.4);
