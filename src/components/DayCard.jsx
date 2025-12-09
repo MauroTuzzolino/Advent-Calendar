@@ -1,47 +1,48 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
-const DayCard = ({ day, isUnlocked }) => {
+const DayCard = ({ day, isUnlocked, onOpenDay }) => {
   const cardRef = useRef(null);
-  const navigate = useNavigate();
 
   const handleClick = () => {
     if (!isUnlocked) return;
 
-    const card = cardRef.current;
-    const rect = card.getBoundingClientRect();
+    const realCard = cardRef.current;
+    const rect = realCard.getBoundingClientRect();
 
-    // posizione iniziale esatta
-    card.style.position = "fixed";
-    card.style.top = rect.top + "px";
-    card.style.left = rect.left + "px";
-    card.style.width = rect.width + "px";
-    card.style.height = rect.height + "px";
+    // 1️⃣ Clona la card
+    const clone = realCard.cloneNode(true);
+    clone.style.position = "fixed";
+    clone.style.top = rect.top + "px";
+    clone.style.left = rect.left + "px";
+    clone.style.width = rect.width + "px";
+    clone.style.height = rect.height + "px";
+    clone.style.margin = 0;
+    clone.style.zIndex = 9999;
+    clone.style.transition = "top 0.55s ease, left 0.55s ease, width 0.55s ease, height 0.55s ease";
 
-    // attiva la classe espansione
-    card.classList.add("expand");
+    // Metti il clone nel DOM sopra tutto
+    document.body.appendChild(clone);
 
-    // forza il repaint
-    void card.offsetWidth;
+    // Nascondi la card reale durante l’animazione
+    realCard.style.opacity = "0";
 
-    // destinazione fullscreen
-    card.style.top = "0";
-    card.style.left = "0";
-    card.style.width = "100vw";
-    card.style.height = "100vh";
+    // 2️⃣ Forza repaint
+    void clone.offsetWidth;
 
-    // quando tutte le transizioni finiscono → naviga
-    const onAnimationEnd = (e) => {
-      // vogliamo aspettare solo l'ULTIMA transizione legata all'espansione
-      if (e.propertyName === "height") {
-        card.removeEventListener("transitionend", onAnimationEnd);
+    // 3️⃣ Anima verso fullscreen
+    requestAnimationFrame(() => {
+      clone.style.top = "0px";
+      clone.style.left = "0px";
+      clone.style.width = "100vw";
+      clone.style.height = "100vh";
+    });
 
-        // navigazione alla pagina del giorno
-        navigate(`/day/${day}`);
-      }
-    };
-
-    card.addEventListener("transitionend", onAnimationEnd);
+    // 4️⃣ Quando finisce → naviga + rimuovi clone
+    setTimeout(() => {
+      onOpenDay(day);
+      clone.remove();
+      realCard.style.opacity = "1";
+    }, 600);
   };
 
   return (
